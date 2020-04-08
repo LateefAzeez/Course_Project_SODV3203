@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,9 +29,10 @@ public class RegisterActivity extends AppCompatActivity {
     //The Views
     EditText registerEmailInput, registerPasswordInput;
     Button registerButton;
+    TextView regAccountCheckText;
 
     //Progressbar to display during user registration
-    ProgressBar registrationProgress;
+   ProgressDialog registrationProgress;
 
     //Declare an instance of FirebaseAuth
     private FirebaseAuth mAuth;
@@ -45,13 +47,14 @@ public class RegisterActivity extends AppCompatActivity {
         registerEmailInput = findViewById(R.id.reg_email_input);
         registerPasswordInput = findViewById(R.id.reg_password_input);
         registerButton = findViewById(R.id.btn_register);
+        regAccountCheckText = findViewById(R.id.reg_account_check);
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
 
-        registrationProgress = new ProgressBar(this);
-        registrationProgress.setTooltipText("Registering User...");
+        registrationProgress = new ProgressDialog(this);
+        registrationProgress.setMessage("Registering User...");
 
         //Set ActionBar title
         ActionBar actionBar = getSupportActionBar();
@@ -86,12 +89,20 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //Handle login textView listener
+        regAccountCheckText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+            }
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void registerUser(String user_email, String user_password) {
         //Since email and password is valid, show progress bar and start registering the user
-        registrationProgress.onVisibilityAggregated(true);
+        registrationProgress.show();
 
         mAuth.createUserWithEmailAndPassword(user_email, user_password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -100,7 +111,7 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, dismiss progress and start register activity
-                            registrationProgress.onVisibilityAggregated(false);
+                            registrationProgress.dismiss();
                             //Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(RegisterActivity.this, "Registered...\n" + user.getEmail(),
@@ -110,7 +121,7 @@ public class RegisterActivity extends AppCompatActivity {
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            registrationProgress.onVisibilityAggregated(false);
+                            registrationProgress.dismiss();
                             //Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(RegisterActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
@@ -124,7 +135,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 //Error! Dismiss progress bar. get and show the error message
-                registrationProgress.onVisibilityAggregated(false);
+                registrationProgress.dismiss();
                 Toast.makeText(RegisterActivity.this, "" +e.getMessage(), Toast.LENGTH_SHORT).show();
 
             }

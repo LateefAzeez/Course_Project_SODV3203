@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ConnectMeApp</string>
+    <string name="register_page_header">Register</string>
+    <string name="email_input_hint">Enter Your Email</string>
+    <string name="password_input_hint">Enter Password</string>
+    <string name="reg_button_text">Register</string>
+    <string name="Acoount_creation_check_text">Already Created Account? Login Please</string>
+    <string name="login_page_header">Login</string>
+    <string name="login_btn_text">Login</string>
+    <string name="account_login_check_text">No Account yet? Register Please</string>
 </resources>
