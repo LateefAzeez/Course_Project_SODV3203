@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "776303163012",
+    "firebase_url": "https://connectmeapp-76cf2.firebaseio.com",
+    "project_id": "connectmeapp-76cf2",
+    "storage_bucket": "connectmeapp-76cf2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776303163012:android:62af973410884a370b34d1",
+        "android_client_info": {
+          "package_name": "com.lateefazeez.connectmeapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "776303163012-7rldkgcl5l0s35b8b738ad6seu2ja6ja.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lateefazeez.connectmeapp",
+            "certificate_hash": "a0d39cbb93ece016c1b06731a97aea1d65191696"
+          }
+        },
+        {
+          "client_id": "776303163012-q8ikrh1drn2r6tp2hi6t8vfcm6hfh5pi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDq57Bya3haDAPTN9TNJ13GNR16UgMOOSU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "776303163012-q8ikrh1drn2r6tp2hi6t8vfcm6hfh5pi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
