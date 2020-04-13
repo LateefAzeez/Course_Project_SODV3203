@@ -74,6 +74,17 @@
         android:textColor="@color/blackTextColour"
        />
 
+    <!-- Google Sign in button: Signing in using google account-->
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/google_login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/recover_password"
+        android:layout_marginTop="15sp">
+
+    </com.google.android.gms.common.SignInButton>
+
 
     <!-- Click to go to register activity-->
     <TextView
