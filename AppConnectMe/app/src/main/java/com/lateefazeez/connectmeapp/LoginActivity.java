@@ -34,6 +34,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -283,6 +287,31 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
+
+                            //Get user email and uid from auth
+                            String users_email = user.getEmail();
+                            String user_uid = user.getUid();
+
+                            //When a user is registered, store information in firebase realtime database as well
+                            //using HashMap
+                            HashMap<Object, String> hashMap = new HashMap<>();
+                            //put information in hashMap
+                            hashMap.put("email", users_email);
+                            hashMap.put("uid", user_uid);
+                            hashMap.put("name", "");   // Will add later (e.g edit profile)
+                            hashMap.put("phone", "");  // Will add later (e.g edit profile)
+                            hashMap.put("image", "");  // Will add later (e.g edit profile)
+
+                            //firebase database instance
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+                            //path to store user data named "users"
+                            DatabaseReference reference = database.getReference("Users");
+
+                            //put data within hashMap in database
+                            reference.child(user_uid).setValue(hashMap);
+
+
                             //show user email in toast
                             Toast.makeText(LoginActivity.this, ""+user.getEmail(), Toast.LENGTH_SHORT).show();
                             //Once user is logged in, go to profileActivity

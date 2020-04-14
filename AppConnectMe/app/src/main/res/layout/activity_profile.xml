@@ -8,13 +8,28 @@
     android:gravity="center"
     tools:context=".ProfileActivity">
 
-    <!--Show email of logged in user-->
-    <TextView
-        android:id="@+id/user_profile"
-        android:layout_width="wrap_content"
+    <!--Frame Layout: Show fragment-->
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Profile"
-        android:textSize="30sp"
-        android:textColor="@color/colorPrimary" />
+        android:layout_weight="1">
+
+    </FrameLayout>
+
+    <!-- Buttom Navigation: Show Menu -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/menu_navigation">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
+    
+    
 
 </LinearLayout>

@@ -9,4 +9,7 @@
     <string name="login_btn_text">Login</string>
     <string name="account_login_check_text">No Account yet? Register Please</string>
     <string name="forgot_password_text">Forgot Password? Recover it here</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

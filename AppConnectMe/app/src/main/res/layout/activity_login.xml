@@ -81,7 +81,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/recover_password"
-        android:layout_marginTop="15sp">
+        android:layout_marginTop="15sp"
+        android:padding="10sp">
 
     </com.google.android.gms.common.SignInButton>
 
