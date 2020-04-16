@@ -1,17 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment">
+    tools:context=".ProfileFragment"
+    android:background="@color/profile_background_color">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textAlignment="center"
-        android:text="Profile"
-        android:gravity="center_horizontal"
-        android:textSize="30sp"/>
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="180sp"
+            android:background="@color/colorPrimaryDark">
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="120sp"
+            android:orientation="horizontal"
+            android:layout_marginTop="100sp">
+
+            <ImageView
+                android:id="@+id/user_image"
+                android:layout_marginStart="20sp"
+                android:background="@color/colorPrimary"
+                android:layout_width="120sp"
+                android:padding="5sp"
+                android:layout_height="120sp"
+                android:layout_marginLeft="20sp"
+                android:src="@drawable/ic_add_photo"
+
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text=""
+                    android:layout_marginTop="5dp"
+                    android:textSize="25sp"
+                    android:textColor="@color/whiteTextColour"
+                    android:layout_marginLeft="5dp" />
+
+                <TextView
+                    android:id="@+id/user_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text=""
+                    android:textColor="@color/whiteTextColour"
+                    android:layout_marginLeft="5dp" />
+
+                <TextView
+                    android:id="@+id/user_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text=""
+                    android:textColor="@color/whiteTextColour"
+                    android:layout_marginLeft="5dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</ScrollView>

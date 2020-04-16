@@ -5,4 +5,5 @@
     <color name="colorAccent">#9D0C8A</color>
     <color name="blackTextColour">#000</color>
     <color name="whiteTextColour">#fff</color>
+    <color name="profile_background_color">#F1EDED</color>
 </resources>

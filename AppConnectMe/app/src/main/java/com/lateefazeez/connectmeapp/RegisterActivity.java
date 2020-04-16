@@ -120,14 +120,14 @@ public class RegisterActivity extends AppCompatActivity {
 
                             FirebaseUser user = mAuth.getCurrentUser();
                             //Get user email and uid from auth
-                            String users_email = user.getEmail();
+                            String user_email = user.getEmail();
                             String user_uid = user.getUid();
 
                             //When a user is registered, store information in firebase realtime database as well
                             //using HashMap
                             HashMap<Object, String> hashMap = new HashMap<>();
                             //put information in hashMap
-                            hashMap.put("email", users_email);
+                            hashMap.put("email", user_email);
                             hashMap.put("uid", user_uid);
                             hashMap.put("name", "");   // Will add later (e.g edit profile)
                             hashMap.put("phone", "");  // Will add later (e.g edit profile)
