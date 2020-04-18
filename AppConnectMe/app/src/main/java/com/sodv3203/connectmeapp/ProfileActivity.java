@@ -1,4 +1,4 @@
-package com.lateefazeez.connectmeapp;
+package com.sodv3203.connectmeapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -78,6 +78,14 @@ public class ProfileActivity extends AppCompatActivity {
                     FragmentTransaction usersFragmentTransaction = getSupportFragmentManager().beginTransaction();
                     usersFragmentTransaction.replace(R.id.content, usersFragment, "");
                     usersFragmentTransaction.commit();
+                    return true;
+                case R.id.nav_map:
+                    //profile fragment transaction
+                    actionBar.setTitle("Map");  //change actionbar title
+                    MapFragment mapFragment = new MapFragment();
+                    FragmentTransaction mapFragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    mapFragmentTransaction.replace(R.id.content, mapFragment, "");
+                    mapFragmentTransaction.commit();
                     return true;
 
             }

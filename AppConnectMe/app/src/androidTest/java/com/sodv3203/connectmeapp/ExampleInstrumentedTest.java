@@ -1,4 +1,4 @@
-package com.lateefazeez.connectmeapp;
+package com.sodv3203.connectmeapp;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.lateefazeez.connectmeapp", appContext.getPackageName());
+        assertEquals("com.sodv3203.connectmeapp", appContext.getPackageName());
     }
 }

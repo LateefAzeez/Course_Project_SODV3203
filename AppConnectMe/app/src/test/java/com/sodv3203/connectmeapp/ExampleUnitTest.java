@@ -1,4 +1,4 @@
-package com.lateefazeez.connectmeapp;
+package com.sodv3203.connectmeapp;
 
 import org.junit.Test;
 

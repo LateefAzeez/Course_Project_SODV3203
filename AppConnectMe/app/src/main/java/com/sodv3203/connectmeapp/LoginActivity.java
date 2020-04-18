@@ -1,4 +1,4 @@
-package com.lateefazeez.connectmeapp;
+package com.sodv3203.connectmeapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
