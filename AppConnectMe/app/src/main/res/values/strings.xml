@@ -13,10 +13,17 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="hello_blank_fragment">Hello blank fragment</string>
 
-  <!-- TODO: Remove or change this placeholder text -->
+  <!-- Location Strings -->
   <string name="location_permission_denied">getLocation: permissions denied</string>
-  <string name="location_text">"Latitude: %1$.4f \nLongitude: %2$.4f \nTimestamp: %3$tr (GMT)"</string>
-  <string name="location_notFound">Location not found</string>
-  <string name="location_notChanged">Location not changed</string>
+  <string name="location_text">"Latitude: %1$.4f \nLongitude: %2$.4f \nTimestamp: %3$tr"</string>
+  <string name="location_not_found">Location not found</string>
+  <string name="location_not_changed">Location not changed</string>
+
+  <!-- FetchAddress Strings -->
+  <string name="service_not_available">Service not available</string>
+  <string name="invalid_lat_long_used">Invalid coordinates used</string>
+  <string name="address_loading">Loading Address…</string>
+  <string name="address_text">"Address: %1$s \n Timestamp: %2$tr"</string>
+  <string name="address_not_found">No address found</string>
 
 </resources>

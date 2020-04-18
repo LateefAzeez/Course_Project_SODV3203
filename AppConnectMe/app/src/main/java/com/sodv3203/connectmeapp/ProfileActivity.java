@@ -24,16 +24,21 @@ import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavig
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements
+  FetchAddressTask.OnTaskCompleted {
 
   //Location Declarations
   private static final int REQUEST_LOCATION_PERMISSION = 1;
   String TAG = "[Check] Profile:";
+  Location mLastLocation;
+  String mLastLocationAddress;
+  FusedLocationProviderClient mFusedLocationClient;
+
   //Firebase Authentication
   FirebaseAuth firebaseAuth;
   ActionBar actionBar;
-  Location mLastLocation;
-  FusedLocationProviderClient mFusedLocationClient;
+
+
   private BottomNavigationView.OnNavigationItemSelectedListener selectedListener = new OnNavigationItemSelectedListener() {
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -179,9 +184,14 @@ public class ProfileActivity extends AppCompatActivity {
                   mLastLocation.getLatitude(),
                   mLastLocation.getLongitude(),
                   mLastLocation.getTime());
-                Toast.makeText(ProfileActivity.this, mLastLocationRetrieved, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this, mLastLocationRetrieved, Toast.LENGTH_LONG).show();
+
+              // Start the reverse geocode AsyncTask
+              new FetchAddressTask(ProfileActivity.this,
+                ProfileActivity.this).execute(location);
+              Toast.makeText(ProfileActivity.this, R.string.address_loading, Toast.LENGTH_SHORT).show();
             } else {
-              Toast.makeText(ProfileActivity.this, R.string.location_notFound, Toast.LENGTH_SHORT).show();
+              Toast.makeText(ProfileActivity.this, R.string.location_not_found, Toast.LENGTH_SHORT).show();
             }
           }
         });
@@ -205,6 +215,14 @@ public class ProfileActivity extends AppCompatActivity {
         }
         break;
     }
+  }
+
+  @Override
+  public void onTaskCompleted(String result) {
+    // Update the UI
+    mLastLocationAddress = getString(R.string.address_text, result, System.currentTimeMillis());
+    Toast.makeText(this, mLastLocationAddress, Toast.LENGTH_LONG).show();
+    Log.d(TAG,mLastLocationAddress);
   }
 
 }
