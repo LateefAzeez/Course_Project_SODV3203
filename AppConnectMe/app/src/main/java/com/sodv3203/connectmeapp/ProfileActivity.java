@@ -34,7 +34,7 @@ public class ProfileActivity extends AppCompatActivity implements
 
   //Location Declarations
   private static final int REQUEST_LOCATION_PERMISSION = 1;
-  Location mLastLocation;
+  static Location mLastLocation;
   LocationResult lastLocationResult;
   String mLastLocationString;
   String mLastAddressRetrieved;
@@ -77,13 +77,13 @@ public class ProfileActivity extends AppCompatActivity implements
           usersFragmentTransaction.replace(R.id.content, usersFragment, "");
           usersFragmentTransaction.commit();
           return true;
-        case R.id.nav_map:
+        case R.id.nav_find_friends:
           //profile fragment transaction
-          actionBar.setTitle("Map");  //change actionbar title
-          MapFragment mapFragment = new MapFragment();
-          FragmentTransaction mapFragmentTransaction = getSupportFragmentManager().beginTransaction();
-          mapFragmentTransaction.replace(R.id.content, mapFragment, "");
-          mapFragmentTransaction.commit();
+          actionBar.setTitle("Find Friends");  //change actionbar title
+          FindFriendsFragment findFriendsFragment = new FindFriendsFragment();
+          FragmentTransaction findFriendsFragmentTransaction = getSupportFragmentManager().beginTransaction();
+          findFriendsFragmentTransaction.replace(R.id.content, findFriendsFragment, "");
+          findFriendsFragmentTransaction.commit();
           return true;
 
       }

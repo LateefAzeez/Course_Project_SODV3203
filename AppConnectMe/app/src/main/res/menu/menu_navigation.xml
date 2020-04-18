@@ -17,8 +17,8 @@
     android:title="Users" />
 
   <item
-    android:id="@+id/nav_map"
+    android:id="@+id/nav_find_friends"
     android:icon="@drawable/icon_nav_map"
-    android:title="Map" />
+    android:title="Find Friends" />
 
 </menu>
