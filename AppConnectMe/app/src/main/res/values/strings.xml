@@ -23,7 +23,7 @@
   <string name="service_not_available">Service not available</string>
   <string name="invalid_lat_long_used">Invalid coordinates used</string>
   <string name="address_loading">Loading Address…</string>
-  <string name="address_text">"Address: %1$s \n Timestamp: %2$tr"</string>
+  <string name="address_text">"Address: %1$s \nTimestamp: %2$tr"</string>
   <string name="address_not_found">No address found</string>
 
 </resources>

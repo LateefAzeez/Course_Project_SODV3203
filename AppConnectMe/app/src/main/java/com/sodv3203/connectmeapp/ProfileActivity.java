@@ -17,6 +17,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -27,12 +30,18 @@ import com.google.firebase.auth.FirebaseUser;
 public class ProfileActivity extends AppCompatActivity implements
   FetchAddressTask.OnTaskCompleted {
 
+  String TAG = "[Check] ProfileActiv.";
+
   //Location Declarations
   private static final int REQUEST_LOCATION_PERMISSION = 1;
-  String TAG = "[Check] Profile:";
   Location mLastLocation;
-  String mLastLocationAddress;
+  LocationResult lastLocationResult;
+  String mLastLocationString;
+  String mLastAddressRetrieved;
+  String lastAddressResult;
   FusedLocationProviderClient mFusedLocationClient;
+  LocationCallback mLocationCallback;
+
 
   //Firebase Authentication
   FirebaseAuth firebaseAuth;
@@ -92,6 +101,7 @@ public class ProfileActivity extends AppCompatActivity implements
 
     //Set ActionBar title
     actionBar = getSupportActionBar();
+    assert actionBar != null;
     actionBar.setTitle("Profile");
 
     //initialize firebase
@@ -113,6 +123,20 @@ public class ProfileActivity extends AppCompatActivity implements
 
     //Start tracking location
     getLocation();
+
+    // Initialize the location callbacks.
+    mLocationCallback = new LocationCallback() {
+      /**
+       * This is the callback that is triggered when the
+       * FusedLocationClient updates your location.
+       * @param locationResult The result containing the device location.
+       */
+      @Override
+      public void onLocationResult(LocationResult locationResult) {
+          new FetchAddressTask(ProfileActivity.this, ProfileActivity.this)
+            .execute(locationResult.getLastLocation());
+          }
+    };
 
   }
 
@@ -173,23 +197,28 @@ public class ProfileActivity extends AppCompatActivity implements
           {Manifest.permission.ACCESS_FINE_LOCATION},
         REQUEST_LOCATION_PERMISSION);
     } else {
-
       mFusedLocationClient.getLastLocation().addOnSuccessListener(
         new OnSuccessListener<Location>() {
           @Override
           public void onSuccess(Location location) {
             if (location != null) {
                 mLastLocation = location;
-                String mLastLocationRetrieved = getString(R.string.location_text,
+                mLastLocationString = getString(R.string.location_text,
                   mLastLocation.getLatitude(),
                   mLastLocation.getLongitude(),
                   mLastLocation.getTime());
-                Toast.makeText(ProfileActivity.this, mLastLocationRetrieved, Toast.LENGTH_LONG).show();
+//                Toast.makeText(ProfileActivity.this, mLastLocationRetrieved, Toast.LENGTH_LONG).show();
 
-              // Start the reverse geocode AsyncTask
-              new FetchAddressTask(ProfileActivity.this,
-                ProfileActivity.this).execute(location);
+//              // Start the reverse geocode AsyncTask
+//              new FetchAddressTask(ProfileActivity.this,
+//                ProfileActivity.this).execute(location);
+
+              mFusedLocationClient.requestLocationUpdates
+                (getLocationRequest(),
+                  mLocationCallback,
+                  null /* Looper */);
               Toast.makeText(ProfileActivity.this, R.string.address_loading, Toast.LENGTH_SHORT).show();
+
             } else {
               Toast.makeText(ProfileActivity.this, R.string.location_not_found, Toast.LENGTH_SHORT).show();
             }
@@ -198,31 +227,50 @@ public class ProfileActivity extends AppCompatActivity implements
     }
   }
 
+  private LocationRequest getLocationRequest() {
+    LocationRequest locationRequest = new LocationRequest();
+    locationRequest.setInterval(30000);
+    locationRequest.setFastestInterval(15000);
+    locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    return locationRequest;
+  }
+
   @Override
   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-    switch (requestCode) {
-      case REQUEST_LOCATION_PERMISSION:
-        // If the permission is granted, get the location,
-        // otherwise, show a Toast
-        if (grantResults.length > 0
-          && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-          getLocation();
-        } else {
-          Log.d(TAG, String.valueOf(R.string.location_permission_denied));
-          Toast.makeText(this,
-            R.string.location_permission_denied,
-            Toast.LENGTH_SHORT).show();
-        }
-        break;
+    if (requestCode == REQUEST_LOCATION_PERMISSION) {// If the permission is granted, get the location,
+      // otherwise, show a Toast
+      if (grantResults.length > 0
+        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        getLocation();
+      } else {
+        Log.d(TAG, String.valueOf(R.string.location_permission_denied));
+        Toast.makeText(this,
+          R.string.location_permission_denied,
+          Toast.LENGTH_SHORT).show();
+      }
     }
   }
 
   @Override
   public void onTaskCompleted(String result) {
+    if (!result.equals(lastAddressResult)){
     // Update the UI
-    mLastLocationAddress = getString(R.string.address_text, result, System.currentTimeMillis());
-    Toast.makeText(this, mLastLocationAddress, Toast.LENGTH_LONG).show();
-    Log.d(TAG,mLastLocationAddress);
+      lastAddressResult = result;
+      mLastAddressRetrieved = getString(R.string.address_text, result, System.currentTimeMillis());
+      Toast.makeText(this, mLastAddressRetrieved, Toast.LENGTH_LONG).show();
+      Log.d(TAG, mLastAddressRetrieved);}
+  }
+
+  @Override
+  protected void onPause() {
+    mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+      super.onPause();
+    }
+
+  @Override
+  protected void onResume() {
+    getLocation();
+    super.onResume();
   }
 
 }
