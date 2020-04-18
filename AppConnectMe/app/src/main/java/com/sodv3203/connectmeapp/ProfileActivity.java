@@ -81,7 +81,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 case R.id.nav_chat:
                     //profile fragment transaction
-                    actionBar.setTitle("Users");  //change actionbar title
+                    actionBar.setTitle("Chats");  //change actionbar title
                     ChatListsFragment chatListsFragment = new ChatListsFragment();
                     FragmentTransaction chatListFragmentTransaction = getSupportFragmentManager().beginTransaction();
                     chatListFragmentTransaction.replace(R.id.content, chatListsFragment, "");

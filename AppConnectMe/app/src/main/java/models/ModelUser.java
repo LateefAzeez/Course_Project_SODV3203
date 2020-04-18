@@ -3,7 +3,7 @@ package models;
 import android.graphics.ColorSpace;
 
 public class ModelUser {
-    //usind same name as in firebase database
+    //using same name as in firebase database
     String name, email, search, phone, image, cover, uid;
 
     public ModelUser() {
@@ -36,20 +36,20 @@ public class ModelUser {
         this.email = email;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getSearch() {
         return search;
     }
 
     public void setSearch(String search) {
         this.search = search;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getImage() {

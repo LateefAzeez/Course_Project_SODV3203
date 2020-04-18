@@ -33,6 +33,8 @@ import java.util.List;
 import adapters.AdapterUsers;
 import models.ModelUser;
 
+import static androidx.core.view.MenuItemCompat.getActionView;
+
 
 public class UsersFragment extends Fragment {
 
@@ -184,37 +186,45 @@ public class UsersFragment extends Fragment {
 
         //searchView
         MenuItem item = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView)MenuItemCompat.getActionView(item);
+        //SearchView searchView = (SearchView) getActionView(item);
+        try {
+            SearchView searchView = (SearchView)item.getActionView();
+
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+                    //called when user press search button from keypad
+                    //if search query is not empty then search
+                    if(!TextUtils.isEmpty(s.trim())) {
+                        searchUsers(s);
+                    }
+                    else {
+                        //search query contains text, search it
+                        getAllUsers();
+                    }
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String s) {
+                    //if search query is not empty then search
+                    if(!TextUtils.isEmpty(s.trim())) {
+                        searchUsers(s);
+                    }
+                    else {
+                        //search query contains text, search it
+                        getAllUsers();
+                    }
+                    return false;
+                }
+            });
+        }
+        catch (Exception e) {
+
+        }
 
         //Search listener
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                //called when user press search button from keypad
-                //if search query is not empty then search
-                if(!TextUtils.isEmpty(toString().trim())) {
-                    searchUsers(query);
-                }
-                else {
-                    //search query contains text, search it
-                   getAllUsers();
-                }
-                return false;
-            }
 
-            @Override
-            public boolean onQueryTextChange(String query) {
-                //if search query is not empty then search
-                if(!TextUtils.isEmpty(toString().trim())) {
-                    searchUsers(query);
-                }
-                else {
-                    //search query contains text, search it
-                    getAllUsers();
-                }
-                return false;
-            }
-        });
         super.onCreateOptionsMenu(menu, inflater);
     }
 
