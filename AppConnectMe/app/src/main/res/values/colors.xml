@@ -2,8 +2,11 @@
 <resources>
     <color name="colorPrimary">#F041DA</color>
     <color name="colorPrimaryDark">#9D0C8A</color>
+    <color name="colorPrimaryDarker">#3C0635</color>
     <color name="colorAccent">#9D0C8A</color>
     <color name="blackTextColour">#000</color>
     <color name="whiteTextColour">#fff</color>
     <color name="profile_background_color">#F1EDED</color>
+    <color name="white_background">#FFFFFF</color>
+    <color name="black_texts">#000000</color>
 </resources>

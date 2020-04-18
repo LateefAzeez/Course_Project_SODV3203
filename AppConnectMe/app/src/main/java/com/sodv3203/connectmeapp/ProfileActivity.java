@@ -1,4 +1,4 @@
-package com.lateefazeez.connectmeapp;
+package com.sodv3203.connectmeapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener;
@@ -80,6 +79,15 @@ public class ProfileActivity extends AppCompatActivity {
                     usersFragmentTransaction.commit();
                     return true;
 
+                case R.id.nav_chat:
+                    //profile fragment transaction
+                    actionBar.setTitle("Users");  //change actionbar title
+                    ChatListsFragment chatListsFragment = new ChatListsFragment();
+                    FragmentTransaction chatListFragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    chatListFragmentTransaction.replace(R.id.content, chatListsFragment, "");
+                    chatListFragmentTransaction.commit();
+                    return true;
+
             }
 
           return false;
@@ -116,25 +124,5 @@ public class ProfileActivity extends AppCompatActivity {
         super.onStart();
     }
 
-    //Inflate options menu
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //inflating the menu
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    //handle menu items clicks
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        //get item id
-        int id = item.getItemId();
-        if (id == R.id.action_logout) {
-            firebaseAuth.signOut();
-            checkUserStatus();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

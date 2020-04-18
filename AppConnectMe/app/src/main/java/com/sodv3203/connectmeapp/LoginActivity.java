@@ -1,4 +1,4 @@
-package com.lateefazeez.connectmeapp;
+package com.sodv3203.connectmeapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -10,13 +10,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -303,6 +301,7 @@ public class LoginActivity extends AppCompatActivity {
                                 hashMap.put("name", "");   // Will add later (e.g edit profile)
                                 hashMap.put("phone", "");  // Will add later (e.g edit profile)
                                 hashMap.put("image", "");  // Will add later (e.g edit profile)
+                                hashMap.put("cover", "");  // Will add later (e.g edit profile)
 
                                 //firebase database instance
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();

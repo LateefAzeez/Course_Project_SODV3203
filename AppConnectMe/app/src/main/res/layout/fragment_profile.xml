@@ -12,75 +12,93 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    </ScrollView>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="180sp"
-            android:background="@color/colorPrimaryDark">
+            android:layout_height="wrap_content">
 
-        </RelativeLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="120sp"
-            android:orientation="horizontal"
-            android:layout_marginTop="100sp">
-
+            <!-- Cover Photo -->
             <ImageView
-                android:id="@+id/user_image"
-                android:layout_marginStart="20sp"
-                android:background="@color/colorPrimary"
-                android:layout_width="120sp"
-                android:padding="5sp"
-                android:layout_height="120sp"
-                android:layout_marginLeft="20sp"
-                android:src="@drawable/ic_add_photo"
+                android:id="@+id/cover_photo"
+                android:layout_width="match_parent"
+                android:layout_height="180sp"
+                android:scaleType="fitXY"
+                android:background="@color/colorPrimaryDark">
 
-                />
+            </ImageView>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="120sp"
+                android:orientation="horizontal"
+                android:layout_marginTop="100sp">
 
-                <TextView
-                    android:id="@+id/user_name"
+                <ImageView
+                    android:id="@+id/user_image"
+                    android:layout_marginStart="20sp"
+                    android:background="@color/colorPrimary"
+                    android:layout_width="120sp"
+                    android:padding="5sp"
+                    android:layout_height="120sp"
+                    android:layout_marginLeft="20sp"
+                    android:src="@drawable/ic_default_user_image"
+
+                    />
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text=""
-                    android:layout_marginTop="5dp"
-                    android:textSize="25sp"
-                    android:textColor="@color/whiteTextColour"
-                    android:layout_marginLeft="5dp" />
+                    android:orientation="vertical"
+                    android:background="@color/colorPrimaryDarker">
 
-                <TextView
-                    android:id="@+id/user_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text=""
-                    android:textColor="@color/whiteTextColour"
-                    android:layout_marginLeft="5dp" />
+                    <TextView
+                        android:id="@+id/user_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text=""
+                        android:layout_marginTop="5dp"
+                        android:textSize="25sp"
+                        android:textColor="@color/whiteTextColour"
+                        android:layout_marginLeft="5dp" />
 
-                <TextView
-                    android:id="@+id/user_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text=""
-                    android:textColor="@color/whiteTextColour"
-                    android:layout_marginLeft="5dp" />
+                    <TextView
+                        android:id="@+id/user_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text=""
+                        android:textColor="@color/whiteTextColour"
+                        android:layout_marginLeft="5dp" />
+
+                    <TextView
+                        android:id="@+id/user_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text=""
+                        android:textColor="@color/whiteTextColour"
+                        android:layout_marginLeft="5dp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-    </RelativeLayout>
+    </ScrollView>
+
+    <!-- Floating Action Button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/edit_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="10sp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_edit_profile"
+        />
+
+
 
 </RelativeLayout>
