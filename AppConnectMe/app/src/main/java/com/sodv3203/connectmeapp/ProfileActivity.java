@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -26,6 +28,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 public class ProfileActivity extends AppCompatActivity implements
   FetchAddressTask.OnTaskCompleted {
@@ -35,16 +42,16 @@ public class ProfileActivity extends AppCompatActivity implements
   //Location Declarations
   private static final int REQUEST_LOCATION_PERMISSION = 1;
   static Location mLastLocation;
-  LocationResult lastLocationResult;
-  String mLastLocationString;
-  String mLastAddressRetrieved;
-  String lastAddressResult;
   FusedLocationProviderClient mFusedLocationClient;
   LocationCallback mLocationCallback;
 
 
   //Firebase Authentication
+
+  private FirebaseDatabase database = FirebaseDatabase.getInstance();
+  private DatabaseReference myRef = database.getReference();
   FirebaseAuth firebaseAuth;
+  FirebaseUser currentUser;
   ActionBar actionBar;
 
 
@@ -129,20 +136,76 @@ public class ProfileActivity extends AppCompatActivity implements
       /**
        * This is the callback that is triggered when the
        * FusedLocationClient updates your location.
+       *
        * @param locationResult The result containing the device location.
        */
       @Override
       public void onLocationResult(LocationResult locationResult) {
-          new FetchAddressTask(ProfileActivity.this, ProfileActivity.this)
-            .execute(locationResult.getLastLocation());
-          }
-    };
 
+//        Log.d(TAG, "locationResult - lat: " + locationResult.getLastLocation().getLatitude());
+//        Log.d(TAG, "locationResult - long: " + locationResult.getLastLocation().getLongitude());
+
+        Location mNewLocation = locationResult.getLastLocation();
+
+        if (mNewLocation != null) {
+
+          if (mLastLocation == null) { //in the first time getLocation() runs, mLastLocation will be null... this condition block handles it and avoid crash.
+
+            mLastLocation = mNewLocation;
+            String mLastLocationString = getString(R.string.location_text, mLastLocation.getLatitude(), mLastLocation.getLongitude(), mLastLocation.getTime());
+            Toast.makeText(ProfileActivity.this, mLastLocationString, Toast.LENGTH_LONG).show();
+
+            new FetchAddressTask(ProfileActivity.this, ProfileActivity.this)
+              .execute(locationResult.getLastLocation());
+
+            try{
+              postToDatabase(mLastLocation);
+            } catch (Throwable e) {
+              e.printStackTrace();
+            }
+
+          } else { //if there's a last location, only fetch address if the latitude and longitude of the new location are different from last location
+
+            double mNewRoundedLatitude = roundLatLong(mNewLocation.getLatitude());
+            double mLastRoundedLatitude = roundLatLong(mLastLocation.getLatitude());
+            double mNewRoundedLongitude = roundLatLong(mNewLocation.getLongitude());
+            double mLastRoundedLongitude = roundLatLong(mLastLocation.getLongitude());
+
+//            Log.d(TAG, "Location Comparison:" + "\n\n  mNewRoundedLatitude:" + mNewRoundedLatitude + "\n  mLastRoundedLatitude:" + mLastRoundedLatitude+ "\n\n  mLastRoundedLongitude:" + mLastRoundedLongitude + "\n  mNewRoundedLongitude:" + mNewRoundedLongitude + "\n\n");
+
+            // compare new location with last location to decide if address should be fetched
+            if (mNewRoundedLatitude != mLastRoundedLatitude || mNewRoundedLongitude != mLastRoundedLongitude) {
+              mLastLocation = mNewLocation;
+              String mLastLocationString = getString(R.string.location_text, mLastLocation.getLatitude(), mLastLocation.getLongitude(), mLastLocation.getTime());
+              Log.d(TAG, "Last location processed: " + mLastLocationString);
+              Toast.makeText(ProfileActivity.this, mLastLocationString, Toast.LENGTH_LONG).show();
+
+              new FetchAddressTask(ProfileActivity.this, ProfileActivity.this)
+                .execute(locationResult.getLastLocation());
+
+              try{
+                postToDatabase(mLastLocation);
+              } catch (Throwable e) {
+                e.printStackTrace();
+              }
+
+            }
+          }
+        }
+      }
+    };
   }
 
   public void checkUserStatus() {
     //get current user
-    FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+    currentUser = firebaseAuth.getCurrentUser();
+
+    assert currentUser != null;
+    Log.d(TAG, "Current User Uid: " + currentUser.getUid());
+    Log.d(TAG, "Current User Name: " + currentUser.getDisplayName());
+    Log.d(TAG, "Current User Email: " + currentUser.getEmail());
+
+
     if (currentUser != null) {
       //user is signed in, stay here
       //set email of logged in user
@@ -189,6 +252,11 @@ public class ProfileActivity extends AppCompatActivity implements
     return super.onOptionsItemSelected(item);
   }
 
+  public double roundLatLong(Double number){
+    double precision =  Math.pow(10, 5);
+    return ((int)(precision * number))/precision;
+  };
+
   private void getLocation() {
     if (ActivityCompat.checkSelfPermission(this,
       Manifest.permission.ACCESS_FINE_LOCATION)
@@ -202,17 +270,6 @@ public class ProfileActivity extends AppCompatActivity implements
           @Override
           public void onSuccess(Location location) {
             if (location != null) {
-                mLastLocation = location;
-                mLastLocationString = getString(R.string.location_text,
-                  mLastLocation.getLatitude(),
-                  mLastLocation.getLongitude(),
-                  mLastLocation.getTime());
-//                Toast.makeText(ProfileActivity.this, mLastLocationRetrieved, Toast.LENGTH_LONG).show();
-
-//              // Start the reverse geocode AsyncTask
-//              new FetchAddressTask(ProfileActivity.this,
-//                ProfileActivity.this).execute(location);
-
               mFusedLocationClient.requestLocationUpdates
                 (getLocationRequest(),
                   mLocationCallback,
@@ -220,17 +277,19 @@ public class ProfileActivity extends AppCompatActivity implements
               Toast.makeText(ProfileActivity.this, R.string.address_loading, Toast.LENGTH_SHORT).show();
 
             } else {
-              Toast.makeText(ProfileActivity.this, R.string.location_not_found, Toast.LENGTH_SHORT).show();
+              Log.d(TAG, String.valueOf(R.string.address_not_found));
+              Toast.makeText(ProfileActivity.this, R.string.address_not_found, Toast.LENGTH_SHORT).show();
             }
           }
-        });
+        }
+      );
     }
   }
 
   private LocationRequest getLocationRequest() {
     LocationRequest locationRequest = new LocationRequest();
-    locationRequest.setInterval(30000);
-    locationRequest.setFastestInterval(15000);
+    locationRequest.setInterval(60000);
+    locationRequest.setFastestInterval(20000);
     locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     return locationRequest;
   }
@@ -253,12 +312,10 @@ public class ProfileActivity extends AppCompatActivity implements
 
   @Override
   public void onTaskCompleted(String result) {
-    if (!result.equals(lastAddressResult)){
     // Update the UI
-      lastAddressResult = result;
-      mLastAddressRetrieved = getString(R.string.address_text, result, System.currentTimeMillis());
-      Toast.makeText(this, mLastAddressRetrieved, Toast.LENGTH_LONG).show();
-      Log.d(TAG, mLastAddressRetrieved);}
+      String mLastAddressFetched = getString(R.string.address_text, result, System.currentTimeMillis());
+      Toast.makeText(this, mLastAddressFetched, Toast.LENGTH_LONG).show();
+      Log.d(TAG, "Fetched "+mLastAddressFetched);
   }
 
   @Override
@@ -271,6 +328,19 @@ public class ProfileActivity extends AppCompatActivity implements
   protected void onResume() {
     getLocation();
     super.onResume();
+  }
+
+  public void postToDatabase(Location location) {
+
+    //firebase database instance
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+    //path to store user data named "users"
+    DatabaseReference reference = database.getReference("Users");
+
+    //put data within database
+    String childPath = currentUser.getUid()+"/lastLocation";
+    reference.child(childPath).setValue(location);
   }
 
 }

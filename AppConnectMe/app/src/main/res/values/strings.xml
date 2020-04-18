@@ -15,7 +15,7 @@
 
   <!-- Location Strings -->
   <string name="location_permission_denied">getLocation: permissions denied</string>
-  <string name="location_text">"Latitude: %1$.4f \nLongitude: %2$.4f \nTimestamp: %3$tr"</string>
+  <string name="location_text">"Latitude: %1$.4f; Longitude: %2$.4f; Timestamp: %3$tr"</string>
   <string name="location_not_found">Location not found</string>
   <string name="location_not_changed">Location not changed</string>
 

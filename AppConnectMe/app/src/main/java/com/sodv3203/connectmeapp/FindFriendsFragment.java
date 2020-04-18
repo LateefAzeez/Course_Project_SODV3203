@@ -69,13 +69,12 @@ public class FindFriendsFragment extends Fragment {
     // Inflate the layout for this fragment
     View rootView = inflater.inflate(R.layout.fragment_find_friends, container, false);
 
-    SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_find_friends);  //use SuppoprtMapFragment for using in fragment instead of activity  MapFragment = activity   SupportMapFragment = fragment
+    SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_find_friends);
     mapFragment.getMapAsync(new OnMapReadyCallback() {
       @Override
       public void onMapReady(GoogleMap mMap) {
 
-
-
+        mMap.setMyLocationEnabled(true);
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         mMap.clear(); //clear old markers
@@ -84,12 +83,12 @@ public class FindFriendsFragment extends Fragment {
           .target(new LatLng(ProfileActivity.mLastLocation.getLatitude(), ProfileActivity.mLastLocation.getLongitude()))
           .zoom(15)
           .bearing(0)
-          .tilt(45)
+          .tilt(0)
           .build();
 
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(userLocation), 2500, null);
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(userLocation), 1500, null);
 
-        mMap.addMarker(new MarkerOptions().position(new LatLng(ProfileActivity.mLastLocation.getLatitude(), ProfileActivity.mLastLocation.getLongitude())));
+//        mMap.addMarker(new MarkerOptions().position(new LatLng(ProfileActivity.mLastLocation.getLatitude(), ProfileActivity.mLastLocation.getLongitude())));
       }
     });
     return rootView;
