@@ -1,15 +1,22 @@
 <resources>
-    <string name="app_name">ConnectMeApp</string>
-    <string name="register_page_header">Register</string>
-    <string name="email_input_hint">Enter Your Email</string>
-    <string name="password_input_hint">Enter Password</string>
-    <string name="reg_button_text">Register</string>
-    <string name="Acoount_creation_check_text">Already Created Account? Login Please</string>
-    <string name="login_page_header">Login</string>
-    <string name="login_btn_text">Login</string>
-    <string name="account_login_check_text">No Account yet? Register Please</string>
-    <string name="forgot_password_text">Forgot Password? Recover it here</string>
+  <string name="app_name">ConnectMeApp</string>
+  <string name="register_page_header">Register</string>
+  <string name="email_input_hint">Enter Your Email</string>
+  <string name="password_input_hint">Enter Password</string>
+  <string name="reg_button_text">Register</string>
+  <string name="Acoount_creation_check_text">Already Created Account? Login Please</string>
+  <string name="login_page_header">Login</string>
+  <string name="login_btn_text">Login</string>
+  <string name="account_login_check_text">No Account yet? Register Please</string>
+  <string name="forgot_password_text">Forgot Password? Recover it here</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="location_permission_denied">getLocation: permissions denied</string>
+  <string name="location_text">"Latitude: %1$.4f \nLongitude: %2$.4f \nTimestamp: %3$tr (GMT)"</string>
+  <string name="location_notFound">Location not found</string>
+  <string name="location_notChanged">Location not changed</string>
+
 </resources>
