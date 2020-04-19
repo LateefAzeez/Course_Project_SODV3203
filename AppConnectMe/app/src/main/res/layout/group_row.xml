@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  app:cardUseCompatPadding="true"
+  app:cardElevation="2dp"
+  app:cardBackgroundColor="@color/white_background"
+  app:contentPadding="10dp">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageView
+      android:id="@+id/group_card_image"
+      android:src="@drawable/ic_group"
+      android:padding="10dp"
+      android:background="@color/colorPrimaryDark"
+      android:layout_width="90dp"
+      android:layout_height="90dp" />
+
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="10"
+      android:layout_marginLeft="15dp"
+      android:layout_gravity="center_vertical"
+      android:orientation="vertical">
+
+      <TextView
+        android:id="@+id/group_card_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Group Name"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"/>
+
+      <TextView
+        android:id="@+id/group_card_members_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="### Members"
+        android:textColor="@color/transparent_grey_dark" />
+
+      <TextView
+        android:id="@+id/group_card_last_message"
+        android:textSize="12sp"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Last message: dd/mm/yyyy"
+        android:textColor="@color/transparent_grey_dark" />
+    </LinearLayout>
+
+    <TextView
+      android:id="@+id/group_card_messages_count"
+      android:layout_width="45dp"
+      android:layout_height="30dp"
+      android:text="###"
+      android:layout_weight="0"
+      android:padding="5dp"
+      android:layout_gravity="center_vertical"
+      android:gravity="center"
+      android:background="@drawable/rounded_badge"
+      android:textColor="@color/transparent_grey_medium"/>
+  </LinearLayout>
+
+</androidx.cardview.widget.CardView>

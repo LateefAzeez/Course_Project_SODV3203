@@ -143,7 +143,7 @@ public class ProfileActivity extends AppCompatActivity implements
 
             mLastLocation = mNewLocation;
             String mLastLocationString = getString(R.string.location_text, mLastLocation.getLatitude(), mLastLocation.getLongitude(), mLastLocation.getTime());
-            Toast.makeText(ProfileActivity.this, mLastLocationString, Toast.LENGTH_LONG).show();
+//            Toast.makeText(ProfileActivity.this, mLastLocationString, Toast.LENGTH_LONG).show();
 
             new FetchAddressTask(ProfileActivity.this, ProfileActivity.this)
               .execute(locationResult.getLastLocation());
@@ -168,7 +168,7 @@ public class ProfileActivity extends AppCompatActivity implements
               mLastLocation = mNewLocation;
               String mLastLocationString = getString(R.string.location_text, mLastLocation.getLatitude(), mLastLocation.getLongitude(), mLastLocation.getTime());
               Log.d(TAG, "Last location processed: " + mLastLocationString);
-              Toast.makeText(ProfileActivity.this, mLastLocationString, Toast.LENGTH_LONG).show();
+//              Toast.makeText(ProfileActivity.this, mLastLocationString, Toast.LENGTH_LONG).show();
 
               new FetchAddressTask(ProfileActivity.this, ProfileActivity.this)
                 .execute(locationResult.getLastLocation());
@@ -237,11 +237,11 @@ public class ProfileActivity extends AppCompatActivity implements
                 (getLocationRequest(),
                   mLocationCallback,
                   null /* Looper */);
-              Toast.makeText(ProfileActivity.this, R.string.address_loading, Toast.LENGTH_SHORT).show();
+//              Toast.makeText(ProfileActivity.this, R.string.address_loading, Toast.LENGTH_SHORT).show();
 
             } else {
               Log.d(TAG, String.valueOf(R.string.address_not_found));
-              Toast.makeText(ProfileActivity.this, R.string.address_not_found, Toast.LENGTH_SHORT).show();
+//              Toast.makeText(ProfileActivity.this, R.string.address_not_found, Toast.LENGTH_SHORT).show();
             }
           }
         }
@@ -251,8 +251,8 @@ public class ProfileActivity extends AppCompatActivity implements
 
   private LocationRequest getLocationRequest() {
     LocationRequest locationRequest = new LocationRequest();
-    locationRequest.setInterval(60000);
-    locationRequest.setFastestInterval(20000);
+    locationRequest.setInterval(5000);
+    locationRequest.setFastestInterval(2000);
     locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     return locationRequest;
   }
@@ -277,7 +277,7 @@ public class ProfileActivity extends AppCompatActivity implements
   public void onTaskCompleted(String result) {
     // Update the UI
       String mLastAddressFetched = getString(R.string.address_text, result, System.currentTimeMillis());
-      Toast.makeText(this, mLastAddressFetched, Toast.LENGTH_LONG).show();
+//      Toast.makeText(this, mLastAddressFetched, Toast.LENGTH_LONG).show();
       Log.d(TAG, "Fetched "+mLastAddressFetched);
   }
 

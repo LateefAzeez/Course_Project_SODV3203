@@ -9,4 +9,7 @@
     <color name="profile_background_color">#F1EDED</color>
     <color name="white_background">#FFFFFF</color>
     <color name="black_texts">#000000</color>
+  <color name="transparent_grey_light">#33000000</color>
+  <color name="transparent_grey_medium">#80000000</color>
+  <color name="transparent_grey_dark">#CC000000</color>
 </resources>
