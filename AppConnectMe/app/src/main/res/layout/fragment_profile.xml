@@ -1,104 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ProfileFragment"
-    android:background="@color/profile_background_color">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/relativeLayout"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/profile_background_color"
+  tools:context=".ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <!-- Cover Photo -->
+    <ImageView
+      android:id="@+id/cover_photo"
+      android:layout_width="0dp"
+      android:layout_height="240dp"
+      android:background="@color/colorPrimaryDarker"
+      android:scaleType="centerCrop"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"/>
 
-            <!-- Cover Photo -->
-            <ImageView
-                android:id="@+id/cover_photo"
-                android:layout_width="match_parent"
-                android:layout_height="180sp"
-                android:scaleType="fitXY"
-                android:background="@color/colorPrimaryDark">
+    <View
+      android:id="@+id/view"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:elevation="2dp"
+      android:background="@color/transparent_grey_medium"
+      app:layout_constraintBottom_toBottomOf="@+id/cover_photo"
+      app:layout_constraintTop_toTopOf="@+id/cover_photo" />
 
-            </ImageView>
+    <ImageView
+      android:id="@+id/user_image"
+      android:layout_width="200dp"
+      android:layout_height="200dp"
+      android:layout_marginTop="140dp"
+      android:elevation="8dp"
+      android:scaleType="centerCrop"
+      android:background="@drawable/rounded_image"
+      android:src="@drawable/ic_default_user_image"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/cover_photo" />
 
+    <LinearLayout
+      android:id="@+id/linearLayout"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_margin="30dp"
+      android:orientation="vertical"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/user_image">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="120sp"
-                android:orientation="horizontal"
-                android:layout_marginTop="100sp">
+        <TextView
+          android:id="@+id/user_name"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:text="User Name"
+          android:textColor="@color/transparent_grey_dark"
+          android:textSize="24sp"
+          android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/user_image"
-                    android:layout_marginStart="20sp"
-                    android:background="@color/colorPrimary"
-                    android:layout_width="120sp"
-                    android:padding="5sp"
-                    android:layout_height="120sp"
-                    android:layout_marginLeft="20sp"
-                    android:src="@drawable/ic_default_user_image"
+        <TextView
+          android:id="@+id/user_email"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:layout_marginTop="5dp"
+          android:text="user email"
+          android:textColor="@color/transparent_grey_medium"
+          android:textSize="18sp"/>
 
-                    />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="@color/colorPrimaryDarker">
+        <TextView
+          android:id="@+id/user_phone"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="5dp"
+          android:gravity="center"
+          android:text="(###) ###-####"
+          android:textColor="@color/transparent_grey_medium" />
 
-                    <TextView
-                        android:id="@+id/user_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:text=""
-                        android:layout_marginTop="5dp"
-                        android:textSize="25sp"
-                        android:textColor="@color/whiteTextColour"
-                        android:layout_marginLeft="5dp" />
+    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/user_email"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:text=""
-                        android:textColor="@color/whiteTextColour"
-                        android:layout_marginLeft="5dp" />
-
-                    <TextView
-                        android:id="@+id/user_phone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:text=""
-                        android:textColor="@color/whiteTextColour"
-                        android:layout_marginLeft="5dp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
-    </ScrollView>
 
     <!-- Floating Action Button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/edit_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="10sp"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/ic_edit_profile"
-        />
+      android:id="@+id/edit_fab"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="10dp"
+      android:src="@drawable/ic_edit_profile"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent" />
 
 
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

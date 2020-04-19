@@ -12,4 +12,5 @@
   <color name="transparent_grey_light">#33000000</color>
   <color name="transparent_grey_medium">#80000000</color>
   <color name="transparent_grey_dark">#CC000000</color>
+  <color name="grey_background">#999999</color>
 </resources>
