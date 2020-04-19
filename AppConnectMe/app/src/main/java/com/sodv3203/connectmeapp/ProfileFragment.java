@@ -55,12 +55,6 @@ import java.util.HashMap;
 
 import static android.app.Activity.RESULT_OK;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ProfileFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -88,8 +82,8 @@ public class ProfileFragment extends Fragment {
     //Permissions constants
     private static final int CAMERA_REQUEST_CODE = 100;
     private static final int STORAGE_REQUEST_CODE = 200;
-    private static final int IMAGE_PICK_GALLERY_REQUEST_CODE = 300;
-    private static final int IMAGE_PICK_CAMERA_REQUEST_CODE = 400;
+    private static final int IMAGE_PICK_GALLERY_CODE = 300;
+    private static final int IMAGE_PICK_CAMERA_CODE = 400;
 
     //Arrays of permissions to be requested
     String cameraPermissions[];
@@ -334,7 +328,7 @@ public class ProfileFragment extends Fragment {
         });
 
         //add buttons in dialog to cancel
-        builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -387,7 +381,9 @@ public class ProfileFragment extends Fragment {
 
             }
         });
-    }
+        //Create Show dialog
+        builder.create().show();
+}
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -434,12 +430,12 @@ public class ProfileFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         //This method will be called after picking image from camera or gallery
         if(resultCode == RESULT_OK) {
-            if(requestCode == IMAGE_PICK_GALLERY_REQUEST_CODE) {
+            if(requestCode == IMAGE_PICK_GALLERY_CODE) {
                 //image is selected from gallery, get uri of image
                 image_uri = data.getData();
                 uploadProfileCoverPhoto(image_uri);
             }
-            if(requestCode == IMAGE_PICK_CAMERA_REQUEST_CODE) {
+            if(requestCode == IMAGE_PICK_CAMERA_CODE) {
                 //image is selected from camera, get uri of image
                 uploadProfileCoverPhoto(image_uri);
             }
@@ -447,12 +443,12 @@ public class ProfileFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void uploadProfileCoverPhoto(Uri image_uri) {
+    private void uploadProfileCoverPhoto(Uri uri) {
         //show progress
         progressDialog.show();
 
 
-        /* Instead of creating a separate function for profile picture and cover photo, we will be doing both in th same function
+        /* Instead of creating a separate function for profile picture and cover photo, we will be doing both in the same function
         * Add a string variable and assign it value "image" when user selects "Edit Profile Picture", and assign a value "cover" when
         * user selects "Edit cover Photo"
         *
@@ -463,7 +459,7 @@ public class ProfileFragment extends Fragment {
         String filePathAndName = storagePath+ ""+ profileOrCoverPhoto + "_"+ user.getUid();
 
         StorageReference storageReference2nd = storageReference.child(filePathAndName);
-        storageReference2nd.putFile(image_uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        storageReference2nd.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 //image is uploaded to storage, now get its url and store in user's database
@@ -483,7 +479,7 @@ public class ProfileFragment extends Fragment {
                     databaseReference.child(user.getUid()).updateChildren(results).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            //url in database of user is added succesfully
+                            //url in database of user is added successfully
                             //dismiss progress dialog
                             progressDialog.dismiss();
                             Toast.makeText(getActivity(), "Image Updated...", Toast.LENGTH_SHORT).show();
@@ -501,7 +497,7 @@ public class ProfileFragment extends Fragment {
                 else {
                     //error
                     progressDialog.dismiss();
-                    Toast.makeText(getActivity(), "Some error Occured", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Some error Occurred", Toast.LENGTH_SHORT).show();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -520,7 +516,7 @@ public class ProfileFragment extends Fragment {
         //Intent to pick from Gallery
         Intent galleryIntent = new Intent(Intent.ACTION_PICK);
         galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent, IMAGE_PICK_GALLERY_REQUEST_CODE);
+        startActivityForResult(galleryIntent, IMAGE_PICK_GALLERY_CODE);
 
     }
 
@@ -536,7 +532,7 @@ public class ProfileFragment extends Fragment {
         //intent for starting camera
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
-        startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_REQUEST_CODE);
+        startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE);
     }
 
     public void checkUserStatus () {
