@@ -12,9 +12,9 @@
     android:title="Profile" />
 
   <item
-    android:id="@+id/nav_users"
+    android:id="@+id/nav_groups"
     android:icon="@drawable/ic_users_black"
-    android:title="Users" />
+    android:title="Group Chat" />
 
   <item
     android:id="@+id/nav_connect_map"

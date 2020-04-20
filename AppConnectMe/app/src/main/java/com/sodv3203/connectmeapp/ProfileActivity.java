@@ -66,13 +66,13 @@ public class ProfileActivity extends AppCompatActivity implements
                     profileFragmentTransaction.replace(R.id.content, profileFragment, "");
                     profileFragmentTransaction.commit();
                     return true;
-                case R.id.nav_users:
+                case R.id.nav_groups:
                     //profile fragment transaction
-                    actionBar.setTitle("Users");  //change actionbar title
-                    UsersFragment usersFragment = new UsersFragment();
-                    FragmentTransaction usersFragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    usersFragmentTransaction.replace(R.id.content, usersFragment, "");
-                    usersFragmentTransaction.commit();
+                    actionBar.setTitle("Interests Chat");  //change actionbar title
+                    GroupChatsListFragment groupChatsListFragment = new GroupChatsListFragment();
+                    FragmentTransaction groupFragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    groupFragmentTransaction.replace(R.id.content, groupChatsListFragment, "");
+                    groupFragmentTransaction.commit();
                     return true;
 
                 case R.id.nav_connect_map:
