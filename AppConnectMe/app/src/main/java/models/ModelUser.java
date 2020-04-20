@@ -1,7 +1,5 @@
 package models;
 
-import android.graphics.ColorSpace;
-
 public class ModelUser {
     //using same name as in firebase database
     String name, email, search, phone, image, cover, uid;

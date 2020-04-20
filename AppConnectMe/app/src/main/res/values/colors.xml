@@ -7,6 +7,9 @@
     <color name="blackTextColour">#000</color>
     <color name="whiteTextColour">#fff</color>
     <color name="profile_background_color">#F1EDED</color>
+    <color name="home_background_color">#F792E3</color>
+    <color name="group_background_color">#FEE9F7</color>
+    <color name="app_text_color">#3C0635</color>
     <color name="white_background">#FFFFFF</color>
     <color name="black_texts">#000000</color>
   <color name="transparent_grey_light">#33000000</color>
